@@ -1,0 +1,14 @@
+curl -I  https://en.wikipedia.org/wiki/Special:Random | grep location: > header.txt
+sed 's/location:/Read/1' header.txt > link.txt
+file='book.txt'
+while read line; do
+echo $line
+done < $file
+
+sql_statement=""
+echo "INSERT INTO todos VALUES ('" + $line +"');" >  $sql_statement
+echo $sql_statement | psql -h remote_server -U username -d database
+
+apt-get update
+apt-get install postgresql-client -y
+apt-get install curl -y

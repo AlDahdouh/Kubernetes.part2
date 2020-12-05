@@ -1,0 +1,8 @@
+docker build -t todo .
+docker tag todo aldahdouh/todo
+docker login
+docker push aldahdouh/todo
+
+kubectl create deployment todo-app --image=aldahdouh/todo
+kubectl get pods
+kubectl get deployments

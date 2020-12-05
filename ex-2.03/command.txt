@@ -1,0 +1,5 @@
+docker exec -it k3d-k3s-default-agent-0 mkdir -p /local/images
+docker exec -it k3d-k3s-default-agent-0 chmod a+rwx /local/images
+
+docker exec -it k3d-k3s-default-agent-1 mkdir -p /local/pingpong
+docker exec -it k3d-k3s-default-agent-1 chmod a+rwx /local/pingpong

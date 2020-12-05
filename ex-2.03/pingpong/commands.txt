@@ -1,0 +1,8 @@
+docker build -t pingpong .
+docker tag pingpong aldahdouh/pingpong
+docker login
+docker push aldahdouh/pingpong
+
+kubectl apply -f manifests/deployment.yaml 
+kubectl get pods
+kubectl get deployments

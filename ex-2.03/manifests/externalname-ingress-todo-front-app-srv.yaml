@@ -1,0 +1,9 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: ingress-todo-front-app-srv
+spec:
+  type: ExternalName
+  externalName: ingress-todo-front-app-srv.todo-space.svc.cluster.local
+  ports:
+  - port: 2347

@@ -1,0 +1,23 @@
+kubeseal -o yaml < manifests/secret.yaml > manifests/sealedsecret.yaml
+kubectl apply -f manifests/sealedsecret.yaml
+
+echo "postgres" | base64
+echo "postgres" | base64
+echo "Alaa2kubernetes" | base64
+echo "ingress-postgres-srv" | base64
+
+
+psql -h ingress-postgres-srv -d postgres -p 5432 -U postgres -W
+
+
+docker run -d -p 5432:5432 \
+    --name some-postgres \
+	-e POSTGRES_USER=postgres \
+    -e POSTGRES_PASSWORD=Alaa2kubernetes \
+	-e POSTGRES_DB=postgres \
+    postgres
+
+
+apt-get install iputils-ping
+apk add iputils
+apk add postgresql-client

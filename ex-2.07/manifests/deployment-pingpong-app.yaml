@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: pingpong-app
+  name: pingpong-app
+  namespace: main-space
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pingpong-app
+  template:
+    metadata:
+      labels:
+        app: pingpong-app
+    spec:
+      containers:
+      - name: pingpong
+        image: aldahdouh/pingpong
+        imagePullPolicy: Always
+        env:
+        - name: POSTGRES_DB
+          valueFrom:
+            secretKeyRef:
+                name: postgres-keys
+                key: POSTGRES_DB
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+                name: postgres-keys
+                key: POSTGRES_PASSWORD
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+                name: postgres-keys
+                key: POSTGRES_USER
+        - name: POSTGRES_HOST
+          valueFrom:
+            secretKeyRef:
+                name: postgres-keys
+                key: POSTGRES_HOST

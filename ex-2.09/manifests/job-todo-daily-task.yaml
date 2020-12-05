@@ -1,0 +1,37 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: job-todo-daily-task
+  namespace: main-space
+spec:
+  schedule: "0 0 */1 * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: job-todo-daily-task
+            image: aldahdouh/todo-daily-task
+            env:
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                    name: postgres-keys
+                    key: POSTGRES_DB
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                    name: postgres-keys
+                    key: POSTGRES_PASSWORD
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                    name: postgres-keys
+                    key: POSTGRES_USER
+            - name: POSTGRES_HOST
+              valueFrom:
+                secretKeyRef:
+                    name: postgres-keys
+                    key: POSTGRES_HOST
+            imagePullPolicy: Always
+          restartPolicy: OnFailure

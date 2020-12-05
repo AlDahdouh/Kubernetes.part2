@@ -1,0 +1,35 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ingress-to-apps
+  annotations:
+   traefik.ingress.kubernetes.io/rule-type: "PathPrefixStrip"
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /main
+        backend:
+          serviceName: ingress-main-app-srv
+          servicePort: 2345
+      - path: /pingpong
+        backend:
+          serviceName: ingress-pingpong-app-srv
+          servicePort: 2343
+      - path: /api
+        backend:
+          serviceName: ingress-todo-back-app-srv
+          servicePort: 2346
+      - path: /edustats
+        backend:
+          serviceName: ingress-edustats-srv
+          servicePort: 2340
+      - path: /postgres
+        backend:
+          serviceName: ingress-postgres-srv
+          servicePort: 2342
+      - path: /
+        backend:
+          serviceName: ingress-todo-front-app-srv
+          servicePort: 2347
+

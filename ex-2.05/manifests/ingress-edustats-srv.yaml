@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ingress-edustats-srv
+  namespace: default
+spec:
+  type: ClusterIP
+  selector:
+    app: edustats-app
+  ports:
+    - port: 2340
+      protocol: TCP
+      targetPort: 3001

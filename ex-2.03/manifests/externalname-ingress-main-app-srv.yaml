@@ -1,0 +1,9 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: ingress-main-app-srv
+spec:
+  type: ExternalName
+  externalName: ingress-main-app-srv.main-space.svc.cluster.local
+  ports:
+  - port: 2345

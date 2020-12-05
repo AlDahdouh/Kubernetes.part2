@@ -1,0 +1,12 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: ingress-postgres-srv
+  namespace: todo-space
+spec:
+  type: ExternalName
+  externalName: ingress-postgres-srv.main-space.svc.cluster.local
+  ports:
+  - port: 5432
+    targetPort: 5432
+    name: ingress-postgres-srv

@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ingress-todo-front-app-srv
+  namespace: todo-space
+spec:
+  type: ClusterIP
+  selector:
+    app: todo-app
+  ports:
+    - port: 2347
+      protocol: TCP
+      targetPort: 80

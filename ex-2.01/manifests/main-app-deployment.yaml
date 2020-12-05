@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: main-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: main-app
+  template:
+    metadata:
+      labels:
+        app: main-app
+    spec:
+      volumes: # Define volume
+        - name: shared-vol
+          emptyDir: {}
+      containers:
+        - name: time-generator
+          image: aldahdouh/time-generator
+          volumeMounts: # Mount volume
+          - name: shared-vol
+            mountPath: /app
+        - name: hash-generator
+          image: aldahdouh/hash-generator
+          volumeMounts: # Mount volume
+          - name: shared-vol
+            mountPath: /app

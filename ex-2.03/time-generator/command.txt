@@ -1,0 +1,13 @@
+docker build -t aldahdouh/time-generator .
+docker run -it aldahdouh/time-generator
+docker login
+docker push aldahdouh/time-generator
+
+
+
+kubectl apply -f m
+
+
+kubectl get pods
+kubectl get deployments
+kubectl logs -f main-app-8584d46dcc-2j25f

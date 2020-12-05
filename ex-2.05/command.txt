@@ -1,0 +1,17 @@
+wget https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.13.1/kubeseal-linux-amd64 -O kubeseal
+install -m 755 kubeseal /usr/local/bin/kubeseal
+kubectl apply -f https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.13.1/controller.yaml
+kubectl get secrets
+nano manifests/secret.yaml
+nano manifests/deployment_edustats.yaml
+
+************************
+convert keys to base64 
+------------------------
+echo "MONGODB_URL" | base64
+echo "SECRET_KEY" | base64
+echo "APOLLO_KEY" | base64
+
+kubeseal -o yaml < manifests/secret.yaml > manifests/sealedsecret.yaml
+kubectl apply -f manifests/ingress-edustats-srv.yaml -f manifests/ingress.yaml -f manifests/deployment_edustats.yaml -f manifests/sealedsecret.yaml 
+

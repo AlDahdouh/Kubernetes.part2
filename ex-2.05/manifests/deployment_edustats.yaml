@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: edustats-app
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: edustats-app
+  template:
+    metadata:
+      labels:
+        app: edustats-app
+    spec:
+      containers:
+        - name: edustats
+          image: aldahdouh/edustats
+          env:
+            - name: PORT
+              value: "3001"
+            - name: MONGODB_URL
+              valueFrom:
+                secretKeyRef:
+                    name: edustats-env
+                    key: MONGODB_URL
+            - name: SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                    name: edustats-env
+                    key: SECRET_KEY
+            - name: APOLLO_KEY
+              valueFrom:
+                secretKeyRef:
+                    name: edustats-env
+                    key: APOLLO_KEY

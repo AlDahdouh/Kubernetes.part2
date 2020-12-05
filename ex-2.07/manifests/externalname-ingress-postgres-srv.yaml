@@ -1,0 +1,9 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: ingress-postgres-srv
+spec:
+  type: ExternalName
+  externalName: ingress-postgres-srv.main-space.svc.cluster.local
+  ports:
+  - port: 5432

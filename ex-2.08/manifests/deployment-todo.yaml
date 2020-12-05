@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: todo-app
+  name: todo-app
+  namespace: todo-space
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: todo-app
+  template:
+    metadata:
+      labels:
+        app: todo-app
+    spec:
+      volumes:
+      - name: shared-todo-image
+        persistentVolumeClaim:
+          claimName: todo-app-claim
+      containers:
+      - image: aldahdouh/todo-front:latest
+        imagePullPolicy: Always
+        name: todo-front
+      - image: aldahdouh/todo-back:latest
+        imagePullPolicy: Always
+        name: todo-back
+        env:
+        - name: POSTGRES_DB
+          valueFrom:
+            secretKeyRef:
+                name: postgres-keys
+                key: POSTGRES_DB
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+                name: postgres-keys
+                key: POSTGRES_PASSWORD
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+                name: postgres-keys
+                key: POSTGRES_USER
+        - name: POSTGRES_HOST
+          valueFrom:
+            secretKeyRef:
+                name: postgres-keys
+                key: POSTGRES_HOST
+        volumeMounts:
+        - mountPath: /app/images
+          name: shared-todo-image

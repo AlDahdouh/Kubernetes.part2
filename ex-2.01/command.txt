@@ -1,0 +1,21 @@
+cd time-generator/
+docker build -t aldahdouh/time-generator .
+docker run -it aldahdouh/time-generator
+docker login
+docker push aldahdouh/time-generator
+
+cd ../hash-generator
+docker build -t aldahdouh/hash-generator .
+docker login
+docker push aldahdouh/hash-generator
+
+
+cd ..
+
+kubectl apply -f manifests/pingpong-app-deployment.yaml
+kubectl apply -f manifests/main-app-deployment.yaml
+
+kubectl get pods
+kubectl get deployments
+kubectl get pv
+kubectl get pvc
